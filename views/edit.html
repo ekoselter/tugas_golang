@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>TUGAS GOLANG</title>
+
+    <style>
+        .container {
+            max-width: 550px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h3>Edit Data Task</h3>
+        <a href="/task" class="btn btn-sm btn-primary">Lihat Data</a>
+        <hr/>
+
+        {{ if .pesan }}
+            <div class="alert alert-success">
+                {{ .pesan }}
+            </div>
+        {{ end }}
+
+        <form action="/task/edit" method="post">
+            <div class="form-group">
+                <label for="">Task</label>
+                <input type="text" name="task" value="{{ .dataInput.Task }}" class="form-control {{ if .validation.Task }} is-invalid {{ end }}">
+                <div class="invalid-feedback">
+                    {{ .validation.Task }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Assignee</label>
+                <input type="text" name="assignee" value="{{ .dataInput.Assignee }}" class="form-control {{ if .validation.Assignee }} is-invalid {{ end }}">
+                <div class="invalid-feedback">
+                    {{ .validation.Assignee }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Deadline</label>
+                <input type="text" name="deadline" value="{{ .dataInput.Deadline }}" class="form-control {{ if .validation.Deadline }} is-invalid {{ end }}">
+                <input type="hidden" name="status"class="form-control" value="Belum Dikerjakan">
+                <div class="invalid-feedback">
+                    {{ .validation.Deadline }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="hidden" name="id" value="{{ .dataInput.Id }}">
+                <button class="btn btn-primary btn-block" type="submit">UBAH</button>
+            </div>
+        </form>
+        
+    </div>
+
+</body>
+
+</html>
