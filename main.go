@@ -177,6 +177,10 @@ func (p *TaskModel) Delete(id int64) {
 	p.conn.Exec("delete from task where id = ?", id)
 }
 
+func (p *TaskModel) Konfirmasi(id int64) {
+	p.conn.Exec("update task set status = ? where id = ?","Dikerjakan", id)
+}
+
 func Index(response http.ResponseWriter, request *http.Request) {
 
 	task, _ := TaskModelbaru.FindAll()
@@ -291,6 +295,15 @@ func Delete(response http.ResponseWriter, request *http.Request) {
 	http.Redirect(response, request, "/task", http.StatusSeeOther)
 }
 
+func Konfirmasi(response http.ResponseWriter, request *http.Request) {
+	queryString := request.URL.Query()
+	id, _ := strconv.ParseInt(queryString.Get("id"), 10, 64)
+
+	TaskModelbaru.Konfirmasi(id)
+
+	http.Redirect(response, request, "/task", http.StatusSeeOther)
+}
+
 func main() {
 	http.HandleFunc("/",Index)
 	http.HandleFunc("/task", Index)
@@ -298,6 +311,7 @@ func main() {
 	http.HandleFunc("/task/add", Add)
 	http.HandleFunc("/task/edit", Edit)
 	http.HandleFunc("/task/delete", Delete)
+	http.HandleFunc("/task/konfirmasi", Konfirmasi)
 
 	http.ListenAndServe(":3000", nil)
 }

@@ -16,7 +16,7 @@
 <body>
 
     <div class="container mt-5">
-        <h3>Data Task</h3>
+        <h3>Data Task (TUGAS GOLANG kelas GOL3-2 EKO PRASTIYANTORO)</h3>
         <a href="/task/add" class="btn btn-sm btn-primary">Tambah Data</a>
         <hr/>
         <table class="table table-sriped table-hover">
@@ -37,6 +37,11 @@
                         <td>{{ .Deadline }}</td>
                         <td>{{ .Status }}</td>
                         <td>
+                            {{ if eq .Status "Belum Dikerjakan" }} 
+                                <a href="/task/konfirmasi?id={{.Id}}" onclick="return confirm('Sudah selesai dikerjakan?')" class="btn btn-sm btn-primary">Selesai</a>  
+                            {{  else }}
+                                <a href="/task/konfirmasi?id={{.Id}}" onclick="return confirm('Sudah selesai dikerjakan?')" class="btn btn-sm btn-primary disabled">Selesai</a> 
+                            {{ end }} 
                             <a href="/task/edit?id={{.Id}}" class="btn btn-sm btn-warning">Edit</a>
                             <a href="/task/delete?id={{.Id}}" onclick="return confirm('Aapakah anda yakin ingin menghapus data?')" class="btn btn-sm btn-danger">Hapus</a>
                         </td>
